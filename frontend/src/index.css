@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "react-clock/dist/Clock.css";
+
+.react-clock {
+  background: transparent;
+}
+
+.react-clock__face {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.react-clock__hand {
+  background-color: white;
+}
+
+.react-clock__second-hand {
+  background-color: #ef4444;
+}
