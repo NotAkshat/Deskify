@@ -4,6 +4,7 @@ import FileManagerApp from "../apps/FileManagerApp";
 import ImageViewer from "../apps/ImageViewer";
 import Docs from "../apps/Docs";
 import VideoPlayer from "../apps/VideoPlayer";
+import LoginApp from "../apps/LoginApp";
 
 export const APP_CONFIG = {
   notes: {
@@ -41,6 +42,13 @@ export const APP_CONFIG = {
     height: 500,
     icon: "fa-regular fa-image",
   },
+  login: {
+  title: "Login",
+  component: LoginApp,
+  width: 300,
+  height: 200,
+  icon: "fa-solid fa-user",
+},
   docs: {
     title: "Document Viewer",
     component: Docs,
