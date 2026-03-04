@@ -1,12 +1,17 @@
 import { useState } from "react";
 import Taskbar from "./components/Taskbar";
 import Windows from "./components/Windows";
-import { APP_CONFIG } from "./utils/index";
-import AnalogClock from "./apps/AnalogClock";
+import { APP_CONFIG } from "./utils";
+import DigitalClock from "./apps/DigitalClock";
+import Aurora from "./components/Aurora";
 
 function App() {
   const [windows, setWindows] = useState([]);
   const [activeWindowId, setActiveWindowId] = useState(null);
+
+  /* =========================
+     WINDOW ACTIONS
+  ========================= */
 
   const openApp = (app, data = {}) => {
     const config = APP_CONFIG[app];
@@ -34,10 +39,7 @@ function App() {
     setActiveWindowId(id);
 
     setWindows((prev) => {
-      if (prev.length === 0) return prev;
-
-      const maxZ = Math.max(...prev.map((w) => w.zIndex));
-
+      const maxZ = Math.max(0, ...prev.map((w) => w.zIndex));
       return prev.map((w) => (w.id === id ? { ...w, zIndex: maxZ + 1 } : w));
     });
   };
@@ -65,50 +67,68 @@ function App() {
   };
 
   const restoreWindow = (id) => {
-    setWindows((prev) =>
-      prev.map((w) =>
-        w.id === id
-          ? {
-              ...w,
-              minimized: false,
-              zIndex: Math.max(...prev.map((p) => p.zIndex)) + 1,
-            }
-          : w,
-      ),
-    );
+    setWindows((prev) => {
+      const maxZ = Math.max(0, ...prev.map((w) => w.zIndex));
+      return prev.map((w) =>
+        w.id === id ? { ...w, minimized: false, zIndex: maxZ + 1 } : w,
+      );
+    });
   };
 
+  /* =========================
+     RENDER
+  ========================= */
+
   return (
-    <div className="w-screen h-screen bg-gradient-to-br from-slate-900 via-slate-600 to-slate-400 relative">
+  <div className="w-screen h-screen relative overflow-hidden bg-black">
 
-      <AnalogClock />
-
-      {/* Desktop area */}
-      <div className="absolute inset-0">
-        {windows.map((win) => (
-          <Windows
-            key={win.id}
-            win={win}
-            focusWindow={focusWindow}
-            closeWindow={closeWindow}
-            updateWindow={updateWindow}
-            isFocused={win.id === activeWindowId}
-            openApp={openApp}
-            minimizeWindow={minimizeWindow}
-            toggleFullscreen={toggleFullscreen}
-          />
-        ))}
-      </div>
-
-      {/* Taskbar */}
-      <Taskbar 
-        onOpenApp={openApp}
-        windows={windows}
-        restoreWindow={restoreWindow}
-        focusedWindowId={activeWindowId}
+    {/* 🌌 GLOBAL BACKGROUND */}
+    <div className="absolute inset-0">
+      <Aurora
+        colorStops={["#1a5fb4", "#3584e4", "#99c1f1"]}
+        blend={0.5}
+        amplitude={1.0}
+        speed={1}
       />
     </div>
-  );
+
+    {/* 🕒 CLOCK */}
+    <DigitalClock />
+
+    {/* 🪟 DESKTOP (TILING LAYOUT) */}
+    <div
+      className="absolute inset-x-0 top-0 bottom-12 grid gap-2 p-2 auto-rows-fr"
+      style={{
+        gridTemplateColumns: `repeat(${Math.ceil(
+          Math.sqrt(windows.length || 1)
+        )}, 1fr)`
+      }}
+    >
+      {windows.map((win) => (
+        <Windows
+          key={win.id}
+          win={win}
+          focusWindow={focusWindow}
+          closeWindow={closeWindow}
+          updateWindow={updateWindow}
+          minimizeWindow={minimizeWindow}
+          toggleFullscreen={toggleFullscreen}
+          isFocused={win.id === activeWindowId}
+          openApp={openApp}
+        />
+      ))}
+    </div>
+
+    {/* 📌 TASKBAR */}
+    <Taskbar
+      onOpenApp={openApp}
+      windows={windows}
+      restoreWindow={restoreWindow}
+      focusedWindowId={activeWindowId}
+    />
+
+  </div>
+);
 }
 
 export default App;

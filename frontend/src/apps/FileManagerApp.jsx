@@ -176,10 +176,10 @@ export default function FileManagerApp({ openApp }) {
   };
 
   return (
-    <div className="h-full flex flex-col bg-gray-100">
+    <div className="h-full flex flex-col">
 
       {/* ===== Toolbar ===== */}
-      <div className="flex items-center gap-2 p-2 bg-gray-200 shrink-0">
+      <div className="flex items-center gap-2 p-2 shrink-0">
         <button
           onClick={goBack}
           disabled={path.length === 1}

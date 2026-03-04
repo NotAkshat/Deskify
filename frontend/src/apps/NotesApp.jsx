@@ -120,7 +120,7 @@ export default function NotesApp() {
   return (
     <div className="w-full h-full flex flex-col">
       {/* HEADER */}
-      <div className="flex items-center justify-between bg-gray-200 px-3 py-1">
+      <div className="flex items-center justify-between px-3 py-1">
         <span className="font-semibold">{noteName}</span>
 
         <div className="flex gap-2">
@@ -142,7 +142,7 @@ export default function NotesApp() {
 
       {/* TEXTAREA */}
       <textarea
-        className="flex-1 resize-none outline-none p-2 bg-transparent text-black"
+        className="flex-1 resize-none outline-none p-2 bg-transparent text-white font-bold"
         placeholder="Start typing your notes..."
         value={text}
         onChange={(e) => setText(e.target.value)}

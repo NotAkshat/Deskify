@@ -30,10 +30,10 @@ export default function CalculatorApp() {
 
   return (
     <div
-      className="h-full flex flex-col p-2 gap-2 bg-gray-100"
+      className="h-full flex flex-col p-2 gap-2"
       onKeyDown={handleKeyDown}
     >
-      <div className="bg-black text-white text-right px-4 py-3 rounded text-2xl font-mono">
+      <div className="text-white text-right px-4 py-3 rounded text-2xl font-mono">
         {display || "0"}
       </div>
 

@@ -1,0 +1,12 @@
+.digital-clock {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ffffff;
+  letter-spacing: 1px;
+
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

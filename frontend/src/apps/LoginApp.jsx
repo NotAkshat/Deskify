@@ -35,16 +35,26 @@ export default function LoginApp() {
   }
 
   return (
-    <div className="p-4">
-      <p className="mb-2">Welcome 👋</p>
-      <p className="text-sm text-gray-600">{user.email}</p>
+  <div className="w-full h-full flex items-center justify-center text-white">
+    
+    <div className="p-6 w-80 rounded-xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-lg">
+      
+      <h2 className="text-lg font-semibold mb-4">Welcome 👋</h2>
+
+      <div className="text-sm text-gray-300 mb-4">
+        <p className="opacity-70">Signed in as</p>
+        <p className="font-mono text-blue-300 break-all">{user.email}</p>
+      </div>
 
       <button
         onClick={signOutUser}
-        className="mt-3 px-3 py-1 bg-red-500 text-white rounded"
+        className="w-full py-2 rounded-lg bg-red-500 hover:bg-red-600 transition font-medium"
       >
         Logout
       </button>
+
     </div>
-  );
+
+  </div>
+);
 }
